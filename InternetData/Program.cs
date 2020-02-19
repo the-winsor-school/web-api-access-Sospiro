@@ -64,7 +64,9 @@ namespace InternetData
         */
         public static void Main(string[] args)
         {
-            userData data = LeagueOfLegends.GetUserData();
+            UserData data = LeagueOfLegends.GetUserData();
+
+            Console.WriteLine(data);
 
             Console.WriteLine(data.summonerName);
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;L
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Net.Http;
 
@@ -9,75 +9,73 @@ namespace InternetData
     public class LeagueOfLegends
     {
         protected static readonly string key = "RGAPI-d3f9cca1-0376-4ffe-9d43-efae7ec438d4";
-        //protected static readonly double longitude = -71.1071909;
-        //protected static readonly double latitude = 42.340993;
 
-        public static userData GetUserData()
+        public static UserData GetUserData()
         {
             string summonerId = "F6XFidKD9ItZqMX-Q8NXJvv-B06OHeBavQuUFuDx5sEth-s";
             HttpClient client = new HttpClient();
 
             HttpRequestMessage request = new HttpRequestMessage(
                 HttpMethod.Get,
-                string.Format("https://developer.riotgames.com/apis#league-v4/GET_getChallengerLeague/lol/league/v4/entries/by-summoner/{encryptedSummonerId}", summonerId));
+                string.Format("https://na1.api.riotgames.com/api/lol/league/v4/entries/by-summoner/{0}?api_key={1}", summonerId, key));
 
             HttpResponseMessage response = client.SendAsync(request).Result;
 
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(userData));
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(UserData));
 
             if (!response.IsSuccessStatusCode)
             {
-                return new userData();
+                return new UserData();
             }
-
-            return (userData)serializer.ReadObject(response.Content.ReadAsStreamAsync().Result);
+            Console.WriteLine(response.Content.ReadAsStreamAsync().Result);
+            return (UserData)serializer.ReadObject(response.Content.ReadAsStreamAsync().Result);
         }
     }
 
     [DataContract]
-    public class userData
+    public class UserData
     {
         [DataMember]
         public string queueType;
 
         [DataMember]
-        public summonerName string;
+        public string summonerName;
 
         [DataMember]
-        public boolean hotStreak;
+        public bool hotStreak;
 
         [DataMember]
-        public miniSeries MiniSeriesDTO;
+        public MiniSeriesDTO miniSeries;
 
         [DataMember]
-        public wins int;
+        public int wins;
 
         [DataMember]
-        public veteran bool;
+        public bool veteran;
 
         [DataMember]
-        public losses int;
+        public int losses;
 
         [DataMember]
-        public rank string;
+        public string rank;
 
         [DataMember]
-        public leagueId string;
+        public string leagueId;
        
         [DataMember]
-        public inactive bool;
+        public bool inactive;
 
         [DataMember]
-        public freshBlood bool;
+        public bool freshBlood;
 
         [DataMember]
-        public tier string;
+        public string tier;
 
         [DataMember]
-        public summonerId string;
+        public string summonerId;
 
         [DataMember]
-        public leaguePoints int;
+        public int leaguePoints;
 
     }
 
@@ -85,19 +83,19 @@ namespace InternetData
     public class MiniSeriesDTO
     {
         [DataMember]
-        public progress string;
+        public string progress;
 
         [DataMember]
-        public losses int;
+        public int losses;
 
         [DataMember]
-        public target int;
+        public int target;
 
         [DataMember]
-        public wins int;
+        public int wins;
 
     }
+   
 
 }
 
-}
