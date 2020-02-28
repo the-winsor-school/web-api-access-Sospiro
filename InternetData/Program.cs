@@ -66,9 +66,16 @@ namespace InternetData
         {
             UserData data = LeagueOfLegends.GetUserData();
 
-            Console.WriteLine(data);
 
-            Console.WriteLine(data.summonerName);
+            foreach (PlayerDto p in data.players)
+            {
+                Console.WriteLine(p);
+            }
+
+               
+            //Console.WriteLine(data.players);
+                //can't just use this line above because you are asking the application to print an object
+                //the application can't just print an object - especially with multiple properties like this one (ex: name and rank)
 
             Console.WriteLine("\nDone!");
         }
