@@ -66,7 +66,6 @@ namespace InternetData
         {
             UserData data = LeagueOfLegends.GetUserData();
 
-
             foreach (PlayerDto p in data.players)
             {
                 Console.WriteLine(p);

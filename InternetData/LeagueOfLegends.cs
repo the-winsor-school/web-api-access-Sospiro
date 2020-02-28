@@ -8,7 +8,7 @@ namespace InternetData
 {
     public class LeagueOfLegends
     {
-        protected static readonly string key = "RGAPI-d0f2b6a4-9c8b-4a2d-95c6-2c36efae9f7e";
+        protected static readonly string key = "RGAPI-1083a310-c7e2-43e7-9c30-100af60625ac";
         //this is the api key that I got through my developer Riot account 
         //- this is the authorization I need in order to access Riot Games' api and access the api endpoints
         //it expires every two days - so I will keep needing to update this key
@@ -18,6 +18,9 @@ namespace InternetData
         {
             //string summonerId = "F6XFidKD9ItZqMX-Q8NXJvv-B06OHeBavQuUFuDx5sEth-s";
             HttpClient client = new HttpClient();
+            //HttpClient - communicates http with the server
+            //when you type something into the address bar, you send an http request
+            //a couple lines below, we will provide the url we want to access
 
             HttpRequestMessage request = new HttpRequestMessage(
                 HttpMethod.Get,
@@ -30,24 +33,32 @@ namespace InternetData
 
 
             HttpResponseMessage response = client.SendAsync(request).Result;
+            //when the client sends a request, you get a result
+            //this result is the response message
 
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(UserData));
 
             if (!response.IsSuccessStatusCode)
             {
                 return new UserData();
+                //will run if the response is not successful...returns empty if it's not successful
             }
 
             Console.WriteLine(response.Content.ReadAsStreamAsync().Result);
             return (UserData)serializer.ReadObject(response.Content.ReadAsStreamAsync().Result);
+            //overall, by this point, we have recieved the response message and deserialized it
         }
     }
+
+    //below we are basically organizing our now-deserialized data we had recieved
+    //from the Riot Games' api website, they list all the properties that the api endpoint returns:
 
     [DataContract]
     public class UserData
     {
         [DataMember]
         public List<PlayerDto> players;
+        //"players" is a property of UserData that is a list of PlayerDto's (a list of objects)
 
     }
 
@@ -61,10 +72,11 @@ namespace InternetData
         [DataMember]
         public int rank;
         //this is a property of the object, PlayerDto - it holds integer values and is called "rank"
-        
+
         public override string ToString()
         {
             return string.Format("{0} --- Rank #{1}", name, rank);
+            //returns the name and rank (properties) of each player (object)
         }
 
     }
@@ -91,7 +103,8 @@ namespace InternetData
 
 
 
-//left behind trying to access this endpoint because there was some extraneous issue with finding an accurate summonerID (encrypted username) for my account
+//left behind this code because I took a while to type all the properties in;
+//hit a roadblock running it because Riot Games recently updated their format of summonerIDs (username codes) and there are some roadblocks to getting your summonerID code...
 
 /*
 public static UserData GetUserData()
