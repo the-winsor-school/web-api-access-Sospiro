@@ -8,7 +8,7 @@ namespace InternetData
 {
     public class LeagueOfLegends
     {
-        protected static readonly string key = "RGAPI-1083a310-c7e2-43e7-9c30-100af60625ac";
+        protected static readonly string key = "RGAPI-6db86aac-ae26-41f0-a0d6-4ef08ad42c83";
         //this is the api key that I got through my developer Riot account 
         //- this is the authorization I need in order to access Riot Games' api and access the api endpoints
         //it expires every two days - so I will keep needing to update this key
